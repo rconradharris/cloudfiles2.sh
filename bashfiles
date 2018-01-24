@@ -386,7 +386,8 @@ function bf_md5() {
 
     # Provide checksum progress using `pv` if `pv` is present and we're above
     # the minimum size cut-off
-    if [[ -n `which pv` && $size -ge BF_CHECKSUM_PROGRESS_MIN_SIZE ]]; then
+    hash pv > /dev/null 2>&1
+    if [[ $? -eq 0 && $size -ge BF_CHECKSUM_PROGRESS_MIN_SIZE ]]; then
         cmd="pv $filename | "
     else
         cmd="cat $filename | "
